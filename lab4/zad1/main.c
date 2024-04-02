@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    // Konwersja ze stringa do inta
+    // konwersja ze stringa do inta
     int n = atoi(argv[1]);
 
     if (n == 0 && argv[1][0] != '0')
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
     pid_t children_pids[n];
 
-    // Tworzenie n procesow
+    // tworzenie n procesow
     for (int i = 0; i < n; i++)
     {
         pid_t pid = fork();
