@@ -65,13 +65,14 @@ int main(int argc, char *argv[])
     pid_t parent_pid = getpid();
     printf("parent pid = %d, child pid = %d\n", parent_pid, child_pid);
 
+    int exit_status;
     if (WIFEXITED(status))
     {
-        int exit_status = WEXITSTATUS(status);
+        exit_status = WEXITSTATUS(status);
         printf("child exit code: %d\n", exit_status);
     }
 
     printf("parent's local = %d, parent's global = %d\n", local, global);
 
-    return 0;
+    return exit_status;
 }
