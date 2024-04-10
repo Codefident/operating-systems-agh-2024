@@ -1,2 +1,6 @@
 main
+sender
+catcher
 *.o
+punkty.txt
+.vscode/
