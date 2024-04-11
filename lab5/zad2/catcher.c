@@ -10,19 +10,7 @@ volatile sig_atomic_t command;
 volatile sig_atomic_t commands_received = 0;
 volatile sig_atomic_t perform_action = 0;
 
-void handler(int signum, siginfo_t *info, void *context)
-{
-    if (signum == SIGUSR1)
-    {
-        command = info->si_value.sival_int;
-        printf("Otrzymano SIGUSR1, command: %d\n", command);
-
-        commands_received++;
-        perform_action = 1;
-
-        kill(info->si_pid, SIGUSR1);
-    }
-}
+void handler(int signum, siginfo_t *info, void *context);
 
 int main()
 {
@@ -72,4 +60,18 @@ int main()
     }
 
     return 0;
+}
+
+void handler(int signum, siginfo_t *info, void *context)
+{
+    if (signum == SIGUSR1)
+    {
+        command = info->si_value.sival_int;
+        printf("Otrzymano SIGUSR1, command: %d\n", command);
+
+        commands_received++;
+        perform_action = 1;
+
+        kill(info->si_pid, SIGUSR1);
+    }
 }
