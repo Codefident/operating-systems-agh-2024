@@ -1,0 +1,6 @@
+Uzyto polecenia:
+objdump -d main
+
+Mozna zauwazyc, ze dla biblioteki statycznej jestesmy w stanie zobaczyc kod obu funkcji z biblioteki,
+inaczej natomiast wyglada kwestia dla biblioteki dynamicznej oraz wspoldzielonej. Tam wywolywana
+funkcja jest jedynie wspomniana.

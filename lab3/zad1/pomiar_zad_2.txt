@@ -1,0 +1,7 @@
+Dla pliku long.txt
+
+Znak po znaku:
+2.928377s
+
+Bloki:
+0.004212s
