@@ -57,8 +57,7 @@ int main()
                 exit(EXIT_FAILURE);
             }
 
-            message.client_id = num_clients + 1;
-            num_clients++;
+            message.client_id = ++num_clients;
 
             // send back id
             message.mtype = message.client_id;
