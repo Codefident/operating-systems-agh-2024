@@ -59,7 +59,6 @@ int main()
 
             message.client_id = num_clients + 1;
             num_clients++;
-            printf("message.client_id = %d\n", message.client_id);
 
             // send back id
             message.mtype = message.client_id;
