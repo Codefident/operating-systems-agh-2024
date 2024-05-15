@@ -24,3 +24,14 @@ void signal_semaphore(int sem_id, int sem_num)
     sem_op.sem_flg = 0;
     semop(sem_id, &sem_op, 1);
 }
+
+int get_semaphore_value(int sem_id, int sem_num)
+{
+    int value = semctl(sem_id, sem_num, GETVAL);
+    if (value == -1)
+    {
+        perror("semctl GETVAL failed");
+        exit(EXIT_FAILURE);
+    }
+    return value;
+}

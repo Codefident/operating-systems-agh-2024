@@ -1,14 +1,5 @@
 #include "print_system.h"
 
-void generate_random_job(char *job)
-{
-    for (int i = 0; i < JOB_LENGTH; ++i)
-    {
-        job[i] = 'a' + rand() % 26;
-    }
-    job[JOB_LENGTH] = '\0';
-}
-
 int main()
 {
     srand(time(NULL) + getpid());
@@ -36,17 +27,30 @@ int main()
 
     while (1)
     {
-        char job[JOB_LENGTH + 1];
-        generate_random_job(job);
+        char text[TEXT_LENGTH + 1];
+        strcpy(text, "");
 
-        printf("Text to print: %s\n", job);
+        for (int i = 0; i < TEXT_LENGTH; i++)
+        {
+            text[i] = 'a' + rand() % 26;
+        }
+        text[TEXT_LENGTH] = '\0';
+
+        printf("Text to print: %s\n", text);
 
         wait_semaphore(sem_id, SEM_EMPTY);
         wait_semaphore(sem_id, SEM_MUTEX);
 
-        strcpy(buffer->jobs[buffer->in], job);
+        // memset(buffer->to_print[buffer->in], 0, sizeof(buffer->to_print[buffer->in]));
+        strcpy(buffer->to_print[buffer->in], text);
         buffer->in = (buffer->in + 1) % BUFFER_SIZE;
-        buffer->job_count++;
+
+        printf("Text is now in printing queue (buffer)\n\n");
+
+        // for (int i = 0; i < BUFFER_SIZE; i++)
+        // {
+        //     printf("buffer[%d]: %s\n", i, buffer->to_print[i]);
+        // }
 
         signal_semaphore(sem_id, SEM_MUTEX);
         signal_semaphore(sem_id, SEM_FULL);

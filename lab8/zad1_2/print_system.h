@@ -1,6 +1,3 @@
-#ifndef PRINT_SYSTEM_H
-#define PRINT_SYSTEM_H
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,12 +9,11 @@
 #include <time.h>
 
 #define BUFFER_SIZE 3
-#define JOB_LENGTH 10
+#define TEXT_LENGTH 10
 
 typedef struct
 {
-    char jobs[BUFFER_SIZE][JOB_LENGTH];
-    int job_count;
+    char to_print[BUFFER_SIZE][TEXT_LENGTH + 1];
     int in;
     int out;
 } print_buffer_t;
@@ -32,5 +28,4 @@ typedef struct
 void init_semaphores(int sem_id);
 void wait_semaphore(int sem_id, int sem_num);
 void signal_semaphore(int sem_id, int sem_num);
-
-#endif // PRINT_SYSTEM_H
+int get_semaphore_value(int sem_id, int sem_num);

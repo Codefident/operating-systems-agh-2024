@@ -28,23 +28,22 @@ int main()
         wait_semaphore(sem_id, SEM_FULL);
         wait_semaphore(sem_id, SEM_MUTEX);
 
-        char job[JOB_LENGTH + 1];
-        strcpy(job, buffer->jobs[buffer->out]);
+        char text[TEXT_LENGTH + 1];
+        strcpy(text, buffer->to_print[buffer->out]);
         buffer->out = (buffer->out + 1) % BUFFER_SIZE;
-        buffer->job_count--;
 
         signal_semaphore(sem_id, SEM_MUTEX);
         signal_semaphore(sem_id, SEM_EMPTY);
 
-        printf("Printing: %s\n", job);
+        printf("Printing: %s\n", text);
 
-        for (int i = 0; i < JOB_LENGTH; ++i)
+        for (int i = 0; i < TEXT_LENGTH; i++)
         {
-            printf("%c", job[i]);
+            printf("%c", text[i]);
             fflush(stdout);
             sleep(1);
         }
-        printf("\n");
+        printf("\n\n");
     }
 
     return EXIT_SUCCESS;

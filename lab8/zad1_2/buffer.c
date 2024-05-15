@@ -16,9 +16,13 @@ int main()
         exit(EXIT_FAILURE);
     }
 
-    buffer->job_count = 0;
     buffer->in = 0;
     buffer->out = 0;
+
+    for (int i = 0; i < BUFFER_SIZE; i++)
+    {
+        strcpy(buffer->to_print[i], "");
+    }
 
     int sem_id = semget(SEM_KEY, 3, IPC_CREAT | 0666);
     if (sem_id == -1)
@@ -31,7 +35,7 @@ int main()
 
     while (1)
     {
-        sleep(1); // Buffer manager idle loop
+        sleep(1);
     }
 
     return EXIT_SUCCESS;
