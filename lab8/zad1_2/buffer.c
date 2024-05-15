@@ -31,7 +31,7 @@ int main()
         exit(EXIT_FAILURE);
     }
 
-    init_semaphores(sem_id);
+    sem_init(sem_id);
 
     while (1)
     {

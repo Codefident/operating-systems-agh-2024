@@ -3,7 +3,9 @@ CFLAGS = -Wall -std=c17 -g
 
 TARGETS = buffer user printer
 
-all: $(TARGETS)
+.PHONY: all clean
+
+all: buffer user printer
 
 buffer: buffer.o semaphore.o
 	$(CC) $(CFLAGS) -o buffer buffer.o semaphore.o
@@ -27,6 +29,4 @@ semaphore.o: semaphore.c print_system.h
 	$(CC) $(CFLAGS) -c semaphore.c
 
 clean:
-	rm -f *.o $(TARGETS)
-
-.PHONY: all clean
+	rm -f *.o buffer user printer

@@ -25,7 +25,7 @@ typedef struct
 #define SEM_EMPTY 1
 #define SEM_FULL 2
 
-void init_semaphores(int sem_id);
-void wait_semaphore(int sem_id, int sem_num);
-void signal_semaphore(int sem_id, int sem_num);
-int get_semaphore_value(int sem_id, int sem_num);
+void sem_init(int sem_id);
+void sem_wait(int sem_id, int sem_num);
+void sem_signal(int sem_id, int sem_num);
+int sem_getval(int sem_id, int sem_num);

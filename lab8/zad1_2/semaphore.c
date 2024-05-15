@@ -1,13 +1,13 @@
 #include "print_system.h"
 
-void init_semaphores(int sem_id)
+void sem_init(int sem_id)
 {
     semctl(sem_id, SEM_MUTEX, SETVAL, 1);
     semctl(sem_id, SEM_EMPTY, SETVAL, BUFFER_SIZE);
     semctl(sem_id, SEM_FULL, SETVAL, 0);
 }
 
-void wait_semaphore(int sem_id, int sem_num)
+void sem_wait(int sem_id, int sem_num)
 {
     struct sembuf sem_op;
     sem_op.sem_num = sem_num;
@@ -16,7 +16,7 @@ void wait_semaphore(int sem_id, int sem_num)
     semop(sem_id, &sem_op, 1);
 }
 
-void signal_semaphore(int sem_id, int sem_num)
+void sem_signal(int sem_id, int sem_num)
 {
     struct sembuf sem_op;
     sem_op.sem_num = sem_num;
@@ -25,7 +25,7 @@ void signal_semaphore(int sem_id, int sem_num)
     semop(sem_id, &sem_op, 1);
 }
 
-int get_semaphore_value(int sem_id, int sem_num)
+int sem_getval(int sem_id, int sem_num)
 {
     int value = semctl(sem_id, sem_num, GETVAL);
     if (value == -1)

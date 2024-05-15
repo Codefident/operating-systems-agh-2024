@@ -25,15 +25,15 @@ int main()
 
     while (1)
     {
-        wait_semaphore(sem_id, SEM_FULL);
-        wait_semaphore(sem_id, SEM_MUTEX);
+        sem_wait(sem_id, SEM_FULL);
+        sem_wait(sem_id, SEM_MUTEX);
 
         char text[TEXT_LENGTH + 1];
         strcpy(text, buffer->to_print[buffer->out]);
         buffer->out = (buffer->out + 1) % BUFFER_SIZE;
 
-        signal_semaphore(sem_id, SEM_MUTEX);
-        signal_semaphore(sem_id, SEM_EMPTY);
+        sem_signal(sem_id, SEM_MUTEX);
+        sem_signal(sem_id, SEM_EMPTY);
 
         printf("Printing: %s\n", text);
 

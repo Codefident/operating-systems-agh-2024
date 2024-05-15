@@ -38,8 +38,8 @@ int main()
 
         printf("Text to print: %s\n", text);
 
-        wait_semaphore(sem_id, SEM_EMPTY);
-        wait_semaphore(sem_id, SEM_MUTEX);
+        sem_wait(sem_id, SEM_EMPTY);
+        sem_wait(sem_id, SEM_MUTEX);
 
         // memset(buffer->to_print[buffer->in], 0, sizeof(buffer->to_print[buffer->in]));
         strcpy(buffer->to_print[buffer->in], text);
@@ -52,8 +52,8 @@ int main()
         //     printf("buffer[%d]: %s\n", i, buffer->to_print[i]);
         // }
 
-        signal_semaphore(sem_id, SEM_MUTEX);
-        signal_semaphore(sem_id, SEM_FULL);
+        sem_signal(sem_id, SEM_MUTEX);
+        sem_signal(sem_id, SEM_FULL);
 
         sleep(rand() % 10 + 2);
     }
