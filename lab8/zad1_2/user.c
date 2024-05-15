@@ -55,7 +55,7 @@ int main()
         signal_semaphore(sem_id, SEM_MUTEX);
         signal_semaphore(sem_id, SEM_FULL);
 
-        sleep(rand() % 5 + 1);
+        sleep(rand() % 10 + 2);
     }
 
     return EXIT_SUCCESS;
