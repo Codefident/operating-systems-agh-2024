@@ -96,3 +96,21 @@ void update_grid(char *src, char *dst)
         }
     }
 }
+
+// concurrent
+
+typedef struct
+{
+    char *current;
+    char *next;
+    int first_cell;
+    int last_cell;
+} thread_data_t;
+
+void init_threads(int n, char *current, char *next)
+{
+}
+
+void update_grid_concurrent(int n, char *current, char *next)
+{
+}
