@@ -13,20 +13,20 @@
 #define MAX_CLIENTS 100
 #define BUFFER_SIZE 1024
 #define MAX_EVENTS 10
+#define MAX_NAME_LEN 20
 
 typedef struct
 {
-    int sockfd;
-    char id[20];
+    struct sockaddr_in sockaddr;
+    char id[MAX_NAME_LEN];
 } Client;
 
 // server
 void remove_client(int);
 void broadcast_message(const char *, int);
-void send_private_message(const char *, const char *);
-void handle_client_message(int);
+void send_private_message(const char *, int, const char *);
+void handle_client_message(char *, int, int);
 void get_current_time(char *, size_t);
-int get_client_index(int);
 
 // client
 void cleanup();

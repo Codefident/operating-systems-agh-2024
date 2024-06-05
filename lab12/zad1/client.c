@@ -26,14 +26,14 @@ int main(int argc, char *argv[])
 
 void chat_client(const char *address, int port)
 {
+    sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+
     struct sockaddr_in server_addr;
-
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = inet_addr(address);
     server_addr.sin_port = htons(port);
 
+    // in this case - set server_addr as default destination
     connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
 
     // initial message, register user on server
