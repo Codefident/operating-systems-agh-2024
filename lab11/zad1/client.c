@@ -7,10 +7,11 @@ int main(int argc, char *argv[])
 {
     if (argc != 4)
     {
-        fprintf(stderr, "Usage: %s <client_id> <address> <port>\n", argv[0]);
+        fprintf(stderr, "Use it like: %s <client_id> <ip_address> <port>\n", argv[0]);
         exit(EXIT_FAILURE);
     }
 
+    // program params
     strcpy(client_id, argv[1]);
     const char *address = argv[2];
     int port = atoi(argv[3]);
@@ -20,19 +21,7 @@ int main(int argc, char *argv[])
 
     chat_client(address, port);
 
-    return 0;
-}
-
-void cleanup()
-{
-    send(sockfd, "STOP", 4, 0);
-    close(sockfd);
-}
-
-void handle_signal(int sig)
-{
-    cleanup();
-    exit(0);
+    return EXIT_SUCCESS;
 }
 
 void chat_client(const char *address, int port)
@@ -59,6 +48,7 @@ void chat_client(const char *address, int port)
         FD_SET(sockfd, &readfds);
         FD_SET(STDIN_FILENO, &readfds);
 
+        // from socket and stdin
         int max_fd = sockfd > STDIN_FILENO ? sockfd : STDIN_FILENO;
 
         select(max_fd + 1, &readfds, NULL, NULL, NULL);
@@ -71,7 +61,7 @@ void chat_client(const char *address, int port)
             if (strncmp(buffer, "STOP", 4) == 0)
             {
                 cleanup();
-                exit(0);
+                exit(EXIT_SUCCESS);
             }
 
             send(sockfd, buffer, strlen(buffer), 0);
@@ -87,4 +77,16 @@ void chat_client(const char *address, int port)
             }
         }
     }
+}
+
+void cleanup()
+{
+    send(sockfd, "STOP", 4, 0);
+    close(sockfd);
+}
+
+void handle_signal(int sig)
+{
+    cleanup();
+    exit(EXIT_SUCCESS);
 }

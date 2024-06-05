@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
     if (argc != 3)
     {
-        fprintf(stderr, "Usage: %s <address> <port>\n", argv[0]);
+        fprintf(stderr, "Use it like: %s <ip_address> <port>\n", argv[0]);
         exit(EXIT_FAILURE);
     }
 
@@ -23,8 +23,8 @@ int main(int argc, char *argv[])
     // declare server params
     struct sockaddr_in server_addr;
     server_addr.sin_family = AF_INET;
-    server_addr.sin_addr.s_addr = inet_addr(address);
-    server_addr.sin_port = htons(port);
+    server_addr.sin_addr.s_addr = inet_addr(address); // XXX.XXX.XXX to binary
+    server_addr.sin_port = htons(port);               // 16-bit number!
 
     // bind server params to server socket descriptor
     bind(server_sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 
     // create epoll
     int epoll_fd = epoll_create1(0);
+
     struct epoll_event ev, events[MAX_EVENTS];
     ev.events = EPOLLIN;
     ev.data.fd = server_sockfd;
@@ -58,7 +59,7 @@ int main(int argc, char *argv[])
                 if (client_sockfd != -1)
                 {
                     recv(client_sockfd, clients[client_count].id, sizeof(clients[client_count].id), 0);
-                    printf("Adding new user: %s\n", clients[client_count].id);
+                    printf("Adding new client: %s\n", clients[client_count].id);
                     clients[client_count].sockfd = client_sockfd;
                     client_count++;
 
@@ -77,7 +78,7 @@ int main(int argc, char *argv[])
     }
 
     close(server_sockfd);
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 void get_current_time(char *buffer, size_t buffer_size)
