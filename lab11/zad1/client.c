@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
     const char *address = argv[2];
     int port = atoi(argv[3]);
 
+    // ctrl + c handler
     signal(SIGINT, handle_signal);
 
     chat_client(address, port);
@@ -45,6 +46,8 @@ void chat_client(const char *address, int port)
     server_addr.sin_port = htons(port);
 
     connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
+
+    // initial message, register user on server
     send(sockfd, client_id, strlen(client_id), 0);
 
     fd_set readfds;

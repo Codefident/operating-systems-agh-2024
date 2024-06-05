@@ -25,6 +25,8 @@ void remove_client(int);
 void broadcast_message(const char *, int);
 void send_private_message(const char *, const char *);
 void handle_client_message(int);
+void get_current_time(char *, size_t);
+int get_client_index(int);
 
 // client
 void cleanup();
